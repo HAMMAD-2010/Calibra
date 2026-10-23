@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Research Assessment Demo — Calibra</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main id="main" tabindex="-1">
+    <div class="container" style="max-width:820px">
+      <p class="muted" style="margin-bottom:.5rem"><a href="about-research.html">← About the Research</a></p>
+      <h1>Research Assessment Demo</h1>
+      <p><span class="badge badge-off">Participant use disabled</span> <span class="badge badge-placeholder">Demo mode</span></p>
+
+      <div class="notice notice-error" role="alert">
+        <strong>Not for real participants.</strong> This section is for the student research team. It must not be used by students until the supervising teacher and the relevant review committee have approved the research protocol. No responses are collected, saved, or sent.
+      </div>
+
+      <section aria-labelledby="purpose-title">
+        <h2 id="purpose-title">Purpose of this assessment</h2>
+        <p>The assessment would ask questions about a fictional scenario and how a person might respond. It is a research instrument, not a test, a personality measure, or an assessment of mental health. Responses would be used only for the study, as described in the approved protocol.</p>
+      </section>
+
+      <section aria-labelledby="form-title">
+        <h2 id="form-title">Demo questions</h2>
+        <p class="muted">These sample questions use the fictional "Hurtful Comment" scenario. They are placeholders written by the research team and are not an approved instrument.</p>
+
+        <div class="card" style="margin-bottom:1rem">
+          <p><strong>Fictional scenario:</strong> A classmate made a comment about another student's appearance at lunch. Some people nearby laughed.</p>
+        </div>
+
+        <form id="demo-form" novalidate>
+          <fieldset class="choice-list">
+            <legend>Q1. Which of these is directly stated in the scenario?</legend>
+            <div class="choice"><input type="radio" name="q1" id="q1a" value="a"><label for="q1a">Some people nearby laughed.</label></div>
+            <div class="choice"><input type="radio" name="q1" id="q1b" value="b"><label for="q1b">The classmate meant to be cruel.</label></div>
+            <div class="choice"><input type="radio" name="q1" id="q1c" value="c"><label for="q1c">Not sure</label></div>
+          </fieldset>
+
+          <fieldset class="choice-list">
+            <legend>Q2. Which next step would you explore first?</legend>
+            <div class="choice"><input type="radio" name="q2" id="q2a" value="pause"><label for="q2a">Pause before responding</label></div>
+            <div class="choice"><input type="radio" name="q2" id="q2b" value="adult"><label for="q2b">Speak with a trusted adult</label></div>
+            <div class="choice"><input type="radio" name="q2" id="q2c" value="info"><label for="q2c">Explore reliable educational information</label></div>
+          </fieldset>
+
+          <div class="field">
+            <label for="withdraw"><input type="checkbox" id="withdraw" name="withdraw"> I want to withdraw my answers before submission</label>
+            <p class="hint">Selecting this clears the answers on this page without sending anything.</p>
+          </div>
+
+          <div class="btn-row">
+            <button class="btn btn-primary" type="submit" id="demo-submit">Submit demo answers</button>
+            <button class="btn btn-secondary" type="button" id="demo-reset">Clear answers</button>
+            <span class="spacer"></span>
+            <button class="exit-btn" type="button" data-exit="true">Exit</button>
+          </div>
+          <p id="demo-error" class="error-msg hidden" role="alert"></p>
+        </form>
+
+        <div id="demo-result" class="notice notice-info hidden" role="status" aria-live="polite"></div>
+      </section>
+
+      <section aria-labelledby="rubric-title">
+        <h2 id="rubric-title">Scoring rubric</h2>
+        <div class="notice">
+          <strong>Rubric pending review.</strong> No scoring criteria have been approved. Scores are not calculated in this demo, and the rubric will not be modified automatically. The research team must configure and review the rubric before any use.
+        </div>
+      </section>
+
+      <section aria-labelledby="data-title">
+        <h2 id="data-title">What happens to responses</h2>
+        <p>In this demo, answers are kept only in the open page's memory and are cleared when you leave the page. Nothing is sent to a server, saved to local storage, or linked to a name. A website checkbox alone is not treated as informed consent. Real studies would require a separate consent process approved by the review committee.</p>
+      </section>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="js/config.js"></script>
+  <script src="js/shared.js"></script>
+  <script>
+    (function () {
+      var cfg = window.CALIBRA_CONFIG || {};
+      var form = document.getElementById("demo-form");
+      var result = document.getElementById("demo-result");
+      var error = document.getElementById("demo-error");
+
+      // This page is demo-only. Real participant collection is not implemented here,
+      // and researchParticipantMode in config.js does not enable any submission path.
+      if (cfg.researchParticipantMode) {
+        error.textContent = "Participant mode is not implemented in this prototype.";
+        error.classList.remove("hidden");
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        error.classList.add("hidden");
+        var q1 = form.querySelector('input[name="q1"]:checked');
+        var q2 = form.querySelector('input[name="q2"]:checked');
+        var withdrawn = document.getElementById("withdraw").checked;
+        if (withdrawn) {
+          form.reset();
+          result.classList.remove("hidden");
+          result.textContent = "Your answers were withdrawn and cleared. Nothing was sent or saved.";
+          CalibraUI.announce("Answers withdrawn and cleared.");
+          return;
+        }
+        if (!q1 || !q2) {
+          error.textContent = "Please answer both questions, or select Clear answers.";
+          error.classList.remove("hidden");
+          CalibraUI.announce(error.textContent);
+          return;
+        }
+        result.classList.remove("hidden");
+        result.textContent = "Demo submission complete. This is a sample only: nothing was sent, saved, or scored. The rubric has not been approved.";
+        CalibraUI.announce("Demo submission complete.");
+      });
+
+      document.getElementById("demo-reset").addEventListener("click", function () {
+        form.reset();
+        result.classList.add("hidden");
+        error.classList.add("hidden");
+      });
+    })();
+  </script>
+</body>
+</html>

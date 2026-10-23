@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Choose a Scenario — Calibra</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <p class="muted" style="margin-bottom:.5rem"><a href="index.html">← Back to home</a></p>
+      <h1>Choose a Fictional Scenario</h1>
+      <p class="lead">Each scenario is made up and describes a common, neutral situation. You do not need to share anything personal. Pick the one that looks most useful to think through.</p>
+
+      <div class="notice notice-info" role="note">
+        Please don't use these scenarios to describe a real situation in your own life. If you are worried about something that is happening to you or someone else, speak with a trusted adult now.
+      </div>
+
+      <div id="scenario-grid" class="grid grid-3" aria-live="polite">
+        <p class="muted">Loading scenarios…</p>
+      </div>
+      <noscript><p class="notice">JavaScript is needed to show the scenario cards in this prototype.</p></noscript>
+      <p id="scenario-error" class="error-msg hidden" role="alert">The scenarios could not be loaded. Please refresh the page.</p>
+
+      <div class="btn-row">
+        <a class="btn btn-secondary" href="index.html">Back</a>
+        <span class="spacer"></span>
+        <a class="btn btn-ghost" href="support.html">Skip to Support Resources</a>
+        <button class="exit-btn" type="button" data-exit="true" aria-label="Exit Calibra">Exit</button>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="js/config.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/scenarios.js"></script>
+  <script>
+    (function () {
+      var grid = document.getElementById("scenario-grid");
+      var error = document.getElementById("scenario-error");
+      try {
+        var list = window.CALIBRA_SCENARIOS;
+        if (!Array.isArray(list) || list.length === 0) throw new Error("empty");
+        grid.innerHTML = list.map(function (s, i) {
+          var href = CalibraUI.link("reflect.html", { scenario: s.id, step: 1 });
+          return '<article class="card scenario-card fade-in" aria-labelledby="sc-' + i + '">' +
+            '<div class="icon-circle" aria-hidden="true">' + CalibraUI.icon(s.icon) + "</div>" +
+            '<h2 id="sc-' + i + '" style="font-size:1.2rem">' + s.title + "</h2>" +
+            "<p>" + s.summary + "</p>" +
+            '<a class="btn btn-primary" href="' + href + '" aria-label="Choose scenario: ' + s.title + '">Choose Scenario</a>' +
+            "</article>";
+        }).join("");
+      } catch (e) {
+        grid.innerHTML = "";
+        error.classList.remove("hidden");
+      }
+    })();
+  </script>
+</body>
+</html>

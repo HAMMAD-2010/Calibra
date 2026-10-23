@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explore Your Next Step — Calibra</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <p class="muted" style="margin-bottom:.5rem"><a href="scenarios.html">← Back to scenarios</a></p>
+      <h1>Explore Your Next Step</h1>
+      <p class="lead">These are a few reasonable options. None is guaranteed to solve the situation, and none is required. Context and safety always matter, and you never have to confront anyone.</p>
+
+      <div id="next-summary" class="card" style="margin:1.5rem 0" aria-live="polite"></div>
+
+      <h2>Possible next steps</h2>
+      <div id="next-grid" class="grid grid-3"></div>
+
+      <div class="notice" role="note" style="margin-top:2rem">
+        <strong>Safety first.</strong> If you feel unsafe, or someone is at risk of being hurt, speak with a trusted adult right away and contact local emergency services if needed. Calibra cannot provide emergency help.
+      </div>
+
+      <div class="btn-row">
+        <a id="back-reflect" class="btn btn-secondary" href="scenarios.html">Return to reflection</a>
+        <span class="spacer"></span>
+        <a class="btn btn-primary" href="support.html">Open Support Resources</a>
+        <button class="exit-btn" type="button" data-exit="true">Exit</button>
+      </div>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="js/config.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/scenarios.js"></script>
+  <script>
+    (function () {
+      var scenario = (window.CALIBRA_SCENARIOS || []).filter(function (s) { return s.id === CalibraUI.getParam("scenario"); })[0];
+      var summary = document.getElementById("next-summary");
+      var grid = document.getElementById("next-grid");
+      var backLink = document.getElementById("back-reflect");
+
+      if (!scenario) {
+        summary.innerHTML = '<div class="notice notice-error" role="alert"><strong>No scenario selected.</strong> Choose a scenario to see options that fit it. You can still browse the general options below.</div>';
+        backLink.href = "scenarios.html";
+      } else {
+        backLink.href = CalibraUI.link("reflect.html", { scenario: scenario.id, step: 4 });
+        var response = scenario.responses.filter(function (r) { return r.id === CalibraUI.getParam("response"); })[0];
+        var next = (window.CALIBRA_NEXT_STEPS || []).filter(function (n) { return n.id === CalibraUI.getParam("next"); })[0];
+        summary.innerHTML = "<h2 style=\"font-size:1.2rem\">" + scenario.title + "</h2>" +
+          "<p class=\"muted\" style=\"margin-bottom:.5rem\">You chose to explore:</p>" +
+          "<ul style=\"margin:0 0 0 1.1rem\">" +
+          "<li><strong>Response:</strong> " + (response ? response.text : "No response was chosen.") + "</li>" +
+          "<li><strong>Next step:</strong> " + (next ? next.title : "No next step was chosen.") + "</li></ul>" +
+          "<p class=\"muted\" style=\"font-size:.92rem;margin:.75rem 0 0\">This is only a reflection. It is not a recommendation, a judgement, or an assessment.</p>";
+      }
+
+      if (!window.CALIBRA_NEXT_STEPS) {
+        grid.innerHTML = '<p class="error-msg" role="alert">These options could not be loaded.</p>';
+        return;
+      }
+      grid.innerHTML = CALIBRA_NEXT_STEPS.map(function (n) {
+        var chosen = CalibraUI.getParam("next") === n.id;
+        return '<article class="card" aria-labelledby="ns-' + n.id + '"' + (chosen ? ' style="border-color:var(--plum);border-width:2px"' : "") + ">" +
+          '<div class="icon-circle" aria-hidden="true">' + CalibraUI.icon(n.icon) + "</div>" +
+          '<h3 id="ns-' + n.id + '">' + n.title + "</h3>" +
+          (chosen ? '<p><span class="badge">You explored this</span></p>' : "") +
+          "<p><strong>What it means:</strong> " + n.explain + "</p>" +
+          "<p class=\"muted\"><strong>When it might help:</strong> " + n.useful + "</p>" +
+          "</article>";
+      }).join("");
+    })();
+  </script>
+</body>
+</html>

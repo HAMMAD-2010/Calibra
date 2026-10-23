@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility and Settings — Calibra</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main id="main" tabindex="-1">
+    <div class="container" style="max-width:820px">
+      <h1>Accessibility and Settings</h1>
+      <p class="lead">Adjust how Calibra looks while you use it. These settings apply only to the page you have open. They are not saved, so they reset when you move to another page or reload.</p>
+
+      <form id="settings-form" class="card" aria-labelledby="settings-title">
+        <h2 id="settings-title" style="font-size:1.25rem">Display options</h2>
+        <div class="field">
+          <label for="opt-large"><input type="checkbox" id="opt-large"> Larger text</label>
+          <p class="hint">Increases text size across the site.</p>
+        </div>
+        <div class="field">
+          <label for="opt-contrast"><input type="checkbox" id="opt-contrast"> High contrast</label>
+          <p class="hint">Uses stronger text and border colours.</p>
+        </div>
+        <div class="field">
+          <label for="opt-motion"><input type="checkbox" id="opt-motion"> Reduce motion</label>
+          <p class="hint">Turns off gentle animations. Your system's reduced-motion setting is also respected.</p>
+        </div>
+        <p id="settings-status" class="muted" role="status" aria-live="polite"></p>
+      </form>
+
+      <section aria-labelledby="kb-title" style="margin-top:2rem">
+        <h2 id="kb-title">Keyboard and screen reader use</h2>
+        <ul>
+          <li>Press <kbd>Tab</kbd> to move between links and buttons. Focus is shown with a dark outline.</li>
+          <li>Press <kbd>Enter</kbd> or <kbd>Space</kbd> to choose a button or answer card.</li>
+          <li>Use the skip link at the top of each page to jump to the main content.</li>
+          <li>Form errors are announced in plain language.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="exit-set-title">
+        <h2 id="exit-set-title">Leaving Calibra</h2>
+        <p>The Exit button is available on every page. It takes you away from Calibra immediately. Nothing is stored, so nothing needs to be cleared.</p>
+        <div class="btn-row">
+          <button class="exit-btn" type="button" data-exit="true">Exit Calibra</button>
+          <a class="btn btn-secondary" href="privacy.html">Privacy and Scope</a>
+        </div>
+      </section>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="js/config.js"></script>
+  <script src="js/shared.js"></script>
+  <script>
+    (function () {
+      var map = { "opt-large": "text-large", "opt-contrast": "high-contrast", "opt-motion": "reduce-motion" };
+      var status = document.getElementById("settings-status");
+      Object.keys(map).forEach(function (id) {
+        var box = document.getElementById(id);
+        box.addEventListener("change", function () {
+          document.documentElement.classList.toggle(map[id], box.checked);
+          status.textContent = "Setting updated for this page view only.";
+        });
+      });
+      if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.getElementById("opt-motion").checked = true;
+      }
+    })();
+  </script>
+</body>
+</html>

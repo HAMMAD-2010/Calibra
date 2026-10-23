@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Calibra Guide (Demo) — Calibra</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main id="main" tabindex="-1">
+    <div class="container" style="max-width:820px">
+      <p class="muted" style="margin-bottom:.5rem"><a href="index.html">← Back to home</a></p>
+      <h1>Calibra Guide</h1>
+      <p><span class="badge badge-placeholder">Demo — not connected to a live AI model</span></p>
+
+      <div class="notice" role="note">
+        <strong>Not professional or emergency support.</strong> Calibra Guide is not a therapist, psychologist, doctor, or emergency service. It cannot diagnose or recommend medication. Please don't type names, school names, phone numbers, locations, or passwords.
+      </div>
+
+      <div id="chat-unavailable" class="notice notice-info hidden" role="status">
+        <strong>Live AI is unavailable in this prototype.</strong> Replies are scripted, so they cannot respond to every question.
+      </div>
+
+      <div class="chat-shell">
+        <div class="chat-header">
+          <strong>Calibra Guide <span class="muted" style="font-weight:400">(scripted demo)</span></strong>
+          <div class="btn-row" style="margin:0;gap:.5rem">
+            <button class="btn btn-secondary" type="button" id="chat-clear" style="min-height:38px;padding:.4rem .9rem">Clear Conversation</button>
+            <button class="exit-btn" type="button" data-exit="true">Exit Chat</button>
+          </div>
+        </div>
+
+        <div id="chat-log" class="chat-log" role="log" aria-live="polite" aria-label="Conversation with Calibra Guide demo"></div>
+
+        <p id="chat-error" class="error-msg hidden" role="alert" style="padding:0 1.25rem"></p>
+
+        <div id="chat-chips" class="chips" aria-label="Suggested questions"></div>
+
+        <form id="chat-form" class="chat-form" autocomplete="off">
+          <label for="chat-input" class="sr-only">Type your question for Calibra Guide</label>
+          <input id="chat-input" type="text" maxlength="300" placeholder="Type a general question…" aria-describedby="chat-hint">
+          <button class="btn btn-primary" type="submit" id="chat-send">Send</button>
+        </form>
+        <p id="chat-hint" class="muted" style="font-size:.85rem;padding:0 1.25rem 1rem;margin:0">Demo only. Messages are kept in this page's memory and are cleared when you leave or click Clear Conversation.</p>
+      </div>
+
+      <p class="muted" style="margin-top:1.5rem;font-size:.92rem">If you are in immediate danger, contact a trusted adult and local emergency services now. Calibra Guide cannot check on you.</p>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="js/config.js"></script>
+  <script src="js/shared.js"></script>
+  <script src="js/guide.js"></script>
+</body>
+</html>

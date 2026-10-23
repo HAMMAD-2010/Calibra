@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy and Scope — Calibra</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="site-header-mount"></div>
+  <main id="main" tabindex="-1">
+    <div class="container">
+      <h1>Privacy and Scope</h1>
+      <p class="lead">This page explains, in plain language, what Calibra is for, what it is not for, and what the current prototype does with the information you enter.</p>
+
+      <section aria-labelledby="designed-title">
+        <h2 id="designed-title">What Calibra is designed to do</h2>
+        <ul>
+          <li>Walk you through fictional peer-interaction scenarios, one step at a time.</li>
+          <li>Help you separate observable facts from assumptions.</li>
+          <li>Show a few reasonable responses and next steps, without telling you which to choose.</li>
+          <li>Point you toward trusted adults and support resources.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="cannot-title">
+        <h2 id="cannot-title">What Calibra cannot do</h2>
+        <ul>
+          <li>It is not therapy, counselling, diagnosis, or medical advice.</li>
+          <li>It does not assess your emotions or mental health.</li>
+          <li>It is not emergency support, and it cannot contact anyone for you.</li>
+          <li>It cannot guarantee that any option will solve a situation, and it does not prevent bullying.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="collect-title">
+        <h2 id="collect-title">What the current prototype collects</h2>
+        <p>The prototype asks for no name, school name, phone number, precise location, or account. You select predefined answer cards and, in the Calibra Guide demo, can type short questions.</p>
+        <div class="card">
+          <table>
+            <thead><tr><th scope="col">Question</th><th scope="col">Answer in the current prototype</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Are your reflection answers stored?</th><td>Kept only in the memory of the open page. They are not written to local storage, cookies, or any database. They are cleared when you leave or reload the page.</td></tr>
+              <tr><th scope="row">Are your answers sent to a server?</th><td>No. The prototype has no server-side code for reflection answers.</td></tr>
+              <tr><th scope="row">Are chat messages stored?</th><td>Chat messages are kept in the open page's memory only. They are cleared with Clear Conversation or when you leave the page.</td></tr>
+              <tr><th scope="row">Is analytics or session replay used?</th><td>No analytics or session replay has been added to the prototype.</td></tr>
+              <tr><th scope="row">Is an external AI service used?</th><td>No. Calibra Guide is a scripted demo with predefined replies. It is not connected to a live AI model.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="exit-title">
+        <h2 id="exit-title">How to exit</h2>
+        <p>Use the <strong>Exit</strong> button at the top of any page, or Exit Chat in Calibra Guide. Exit takes you away from Calibra immediately.</p>
+      </section>
+
+      <section aria-labelledby="support-title">
+        <h2 id="support-title">How to find human support</h2>
+        <p>A trusted adult can help with real situations. That might be a parent or guardian, a teacher, a school counselor, or another adult you feel safe approaching. Calibra's <a href="support.html">Support Resources</a> page explains the options. Verified contact details will be added once the project team has confirmed them.</p>
+      </section>
+
+      <section aria-labelledby="limits-privacy-title">
+        <h2 id="limits-privacy-title">What we cannot promise</h2>
+        <p>Your privacy depends on how you use your device and browser, and on the school or network you are using. Please don't enter personal details in any Calibra feature. If you are concerned about privacy, speak with a trusted adult before continuing.</p>
+      </section>
+
+      <details>
+        <summary>Developer note (remove before public launch)</summary>
+        <p class="muted" style="margin-top:.5rem">Every statement on this page must be checked against the actual implementation before launch. In particular: confirm there is no storage, analytics, session replay, or server transmission; confirm the chatbot is still a scripted demo; and confirm the Exit destination in <code>js/config.js</code>. Do not change these statements to claims like "100% private", "fully anonymous", or "nothing is stored" unless independently verified.</p>
+      </details>
+    </div>
+  </main>
+  <div id="site-footer-mount"></div>
+  <script src="js/config.js"></script>
+  <script src="js/shared.js"></script>
+</body>
+</html>
